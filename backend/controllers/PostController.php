@@ -47,6 +47,7 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->can('post-list')) {
         $searchModel = new PostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,6 +55,7 @@ class PostController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+        }
     }
 
     /**
@@ -64,9 +66,13 @@ class PostController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        if (Yii::$app->user->can('post-view')){
+            return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+        }else{
+            printf('No access');
+        }  
     }
 
     /**
@@ -76,6 +82,7 @@ class PostController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->can('post-create')){
         $model = new Post();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -85,6 +92,7 @@ class PostController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+        }
     }
 
     /**
@@ -96,6 +104,7 @@ class PostController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->can('post-update')){
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -105,6 +114,7 @@ class PostController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+        }
     }
 
     /**
@@ -116,9 +126,11 @@ class PostController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->can('post-delete')){
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+        }
     }
 
     /**
