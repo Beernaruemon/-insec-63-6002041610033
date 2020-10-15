@@ -2,7 +2,6 @@
 
 namespace backend\models;
 
-class AuthItem extends \common\models\AuthItem
-{
+class AuthItem extends \common\models\AuthItem{
 
 }

@@ -2,7 +2,6 @@
 
 namespace backend\models;
 
-class AuthRule extends \common\models\AuthRule
-{
+class AuthRule extends \common\models\AuthRule{
 
 }
